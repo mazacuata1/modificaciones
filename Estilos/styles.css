@@ -1,0 +1,702 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+@font-face {
+  font-family: 'KING ARTHUR';
+  src: url('Fuentes/KING ARTHUR') format('truetype');
+  src: url('Fuentes/Minecraft') format('truetype');
+}
+.navbar {
+  background-color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  transition: background-color 0.3s; /* Agrega transición al color de fondo */
+}
+
+.navbar:hover {
+  background-color: #555; /* Cambia el color de fondo al acercar el cursor */
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar a {
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: color 0.3s; /* Agrega transición al color de texto */
+}
+
+.navbar a:hover {
+  color: black;
+}
+
+.navbar-profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.navbar-profile-inv {
+  display: none;
+}
+
+.profile-section {
+  text-align: center;
+  padding: 20px;
+}
+
+.profile-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+#image-select {
+  margin-top: 10px;
+  width: 100%;
+  padding: 5px;
+}
+
+#cambiar-foto-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#cambiar-foto-button:hover {
+  background-color: #555;
+}
+
+
+#reset-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#reset-button:hover {
+  background-color: #555;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.social-icons a {
+  margin: 0 10px;
+  transition: transform 0.3s, opacity 0.3s, filter 0.3s, color 0.3s;
+  color: white;
+}
+
+.social-icons a:hover {
+  transform: scale(1.1);
+  opacity: 0.7;
+  filter: grayscale(0%);
+  color: #f7d000;
+}
+
+.social-icons img {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  transition: transform 0.3s, opacity 0.3s, filter 0.3s;
+  filter: grayscale(100%);
+}
+
+.social-icons a:hover img {
+  transform: scale(1.1);
+  opacity: 0.7;
+  filter: grayscale(0%);
+}
+
+.navbar-profile-inv {
+  display: none;
+}
+
+
+/* ------------------- Sección 1: Foto de perfil ------------------- */
+.profile-section {
+  text-align: center;
+  margin: 30px auto;
+  max-width: 600px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.profile-section p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #777;
+}
+
+.profile-section img.profile-image {
+  max-width: 200px;
+  height: auto;
+  border-radius: 5px;
+  margin: 20px 0;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#image-select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.cambiar-foto-button {
+  display: inline-block;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.cambiar-foto-button:hover {
+  background-color: #555;
+}
+
+.custom-upload-button {
+  display: inline-block;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.custom-upload-button:hover {
+  background-color: #555;
+}
+
+/* Estilos para pantallas más pequeñas (dispositivos móviles) */
+@media (max-width: 600px) {
+  .profile-section {
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .profile-section h2 {
+    font-size: 20px;
+  }
+
+  .profile-section p {
+    font-size: 14px;
+  }
+
+  .profile-section img.profile-image {
+    max-width: 150px;
+    margin: 10px 0;
+  }
+
+  #image-select {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .cambiar-foto-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* ------------------------------------------- */
+
+/* ------------------- Sección 2: Colores de encabezado y pie de página ------------------- */
+.color-change-section {
+  text-align: center;
+  margin: 30px auto;
+  max-width: 600px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.color-change-section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.color-picker-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #777;
+}
+
+.color-picker {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.apply-button,
+.reset-button {
+  display: inline-block;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.apply-button:hover,
+.reset-button:hover {
+  background-color: #555;
+}
+/* Estilos para pantallas más pequeñas (dispositivos móviles) */
+@media (max-width: 600px) {
+  .color-change-section {
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .color-change-section h2 {
+    font-size: 20px;
+  }
+
+  .color-picker-label {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .color-picker {
+    font-size: 14px;
+    padding: 8px;
+    margin-bottom: 15px;
+  }
+
+  .apply-button,
+  .reset-button {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin: 0 8px;
+  }
+}
+
+/* -------------------------------------------------------- */
+
+
+/* ------------------- Sección 3: cambio de fuente ------------------- */
+
+.font-change-section {
+  text-align: center;
+  margin: 30px auto;
+  max-width: 600px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.font-change-section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.font-select-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #777;
+}
+
+.font-select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 20px;
+}
+
+/* Estilos para pantallas más pequeñas (dispositivos móviles) */
+@media (max-width: 600px) {
+  .font-change-section {
+    padding: 15px;
+  }
+
+  .font-change-section h2 {
+    font-size: 20px;
+  }
+
+  .font-select-label {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .font-select {
+    font-size: 14px;
+    padding: 8px;
+    margin-bottom: 15px;
+  }
+}
+
+
+/* -------------------------------------------------------- */
+
+
+/* .......................Seccion 4 estilos del cambio de fondo..........................*/
+.background-section {
+  text-align: center;
+  margin: 30px auto;
+  max-width: 600px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.background-section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.background-section p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #777;
+}
+
+.color-picker {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.apply-button {
+  display: inline-block;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.apply-button:hover {
+  background-color: #555;
+}
+
+.reset-button {
+  display: inline-block;
+  background-color: #ccc;
+  color: #333;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  background-color: #ddd;
+}
+
+.custom-upload-button {
+  display: inline-block;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.custom-upload-button:hover {
+  background-color: #555;
+}
+
+/* Estilos para pantallas más pequeñas (dispositivos móviles) */
+@media (max-width: 600px) {
+  .background-section {
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .background-section h2 {
+    font-size: 20px;
+  }
+
+  .background-section p {
+    font-size: 14px;
+  }
+
+  .color-picker {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .apply-button,
+  .reset-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+/* ---------------------------------------------------------------- */
+
+
+/* ------------------------Seccion 5, galeria de imagenes ------------------ */
+.image-gallery {
+  text-align: center;
+  margin: 30px auto;
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f7f7f7;
+}
+
+.image-gallery p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #777;
+}
+
+#image-upload {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.custom-button {
+  display: inline-block;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.custom-button:hover {
+  background-color: #555;
+}
+
+.delete-button {
+  background-color: #d9534f;
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.image-grid img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-grid .gallery-image.full-image {
+  max-width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.image-grid .gallery-image.full-image:hover {
+  cursor: pointer;
+}
+
+
+
+/* Estilos para pantallas más pequeñas (dispositivos móviles) */
+@media (max-width: 600px) {
+  .image-gallery {
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* -------------------------------------------------- */
+
+
+
+
+/* ------------------------Seccion 6, corazon ------------------ */
+
+.section {
+  text-align: center;
+  margin: 30px auto;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos específicos para el corazón y el texto */
+
+.heart-container {
+  position: relative;
+  width: 100px;
+  height: 90px;
+  margin: 0 auto 20px;
+  animation: heartbeat 1s infinite;
+}
+
+.heart {
+  background-color: red; /* Color por defecto del corazón */
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  border-radius: 50px;
+  width: 52px;
+  height: 80px;
+  background: red;
+}
+
+.heart::before {
+  left: 50px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart::after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.heart-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+/* Estilos para los botones y el selector de colores */
+
+.btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.color-selector {
+  margin-top: 10px;
+}
+/* -------------------------------------------------------- */
+
+/* Estilos para el footer */
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer-copyright {
+  margin-bottom: 10px;
+}
+
+.social-icons {
+  margin-top: 15px;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.social-icons img {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
+}
+
+.social-icons a:hover img {
+  transform: scale(1.2);
+}
+
+/* -------------------------------------------------------- */
+
