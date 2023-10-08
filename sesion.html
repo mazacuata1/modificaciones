@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Autenticación</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Carga el núcleo de Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!-- Agrega el manejo de autenticación. -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js">
+    </script>
+    <script src="js/init.js"></script>
+</head>
+
+
+<body>
+    <div class="main-content">
+        <div class="container">
+
+            <fieldset>
+                <legend>Email</legend>
+                <output id="email"><progress max="100">Cargando…</progress></output>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>Nombre</legend>
+                <output id="nombre"></output>
+            </fieldset>
+            <figure><img id="avatar" alt="Avatar"></figure>
+            <button type="button" onclick="terminaSesión()">Cerrar Sesión</button>
+            <br>
+        </div>
+    </div>
+
+
+    <script>
+        //@ts-check
+        /** Conexión al sistema de autenticación de Firebase. */
+        // @ts-ignore
+        const auth = firebase.auth();
+        /** Tipo de autenticación de usuarios. En este caso es con Google. */
+        // @ts-ignore
+        const provider = new firebase.auth.GoogleAuthProvider();
+        /* Configura el proveedor de Google para que permita seleccionar de una
+         * lista. */
+        provider.setCustomParameters({ prompt: "select_account" });
+        /* Recibe una función que se invoca cada que hay un cambio en la
+         * autenticación y recibe el modelo con las características del usuario.*/
+        auth.onAuthStateChanged(
+            /** Recibe las características del usuario o null si no ha iniciado
+             * sesión. */
+            usuarioAuth => {
+                if (usuarioAuth && usuarioAuth.email) {
+                    // Usuario aceptado.
+                    // @ts-ignore Muestra el email registrado en Google.
+                    email.value = usuarioAuth.email;
+                    // @ts-ignore Muestra el nombre registrado en Google.
+                    nombre.value = usuarioAuth.displayName;
+                    // @ts-ignore Muestra el avatar registrado en Google.
+                    avatar.src = usuarioAuth.photoURL;
+                } else {
+                    // No ha iniciado sesión. Pide datos para iniciar sesión.
+                    auth.signInWithRedirect(provider);
+                }
+            },
+            // Función que se invoca si hay un error al verificar el usuario.
+            procesaError
+        );
+        /** Termina la sesión. */
+        async function terminaSesión() {
+            try {
+                await auth.signOut();
+            } catch (e) {
+                procesaError(e);
+            }
+        }
+        /** Procesa un error. Muestra el objeto en la consola y un cuadro de
+         * alerta con el mensaje.
+         * @param {Error} e descripción del error. */
+        function procesaError(e) {
+            console.log(e);
+            alert(e.message);
+        }
+    </script>
+    <script>
+        auth.onAuthStateChanged(
+            usuarioAuth => {
+                if (usuarioAuth && usuarioAuth.email) {
+                    // ... (otros elementos) ...
+
+                    // Mostrar la imagen y el texto una vez autenticado
+                    document.getElementById("foryuFigure").style.display = "block";
+                    document.getElementById("imageCaption").style.display = "block";
+                } else {
+                    // ... (otros elementos) ...
+                }
+            },
+            procesaError
+        );
+    </script>
+
+    <script>
+        auth.onAuthStateChanged(usuarioAuth => {
+            if (usuarioAuth && usuarioAuth.email) {
+                // Usuario autenticado, redirige a la página "inicio.html"
+                window.location.href = "inicio.html";
+
+                // Resto del código...
+            } else {
+                // No ha iniciado sesión. Pide datos para iniciar sesión.
+                auth.signInWithRedirect(provider);
+            }
+        },
+            procesaError);
+    </script>
+</body>
+
+</html>
+
+
+<style>
+    body {
+        font-family: 'Open Sans', Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        /* Cambia height por min-height */
+        flex-direction: column;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 600px;
+        padding: 20px;
+        flex: 1;
+        /* Asegura que el contenedor ocupe todo el espacio disponible */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-content {
+        min-height: calc(100vh - 100px);
+        /* Ajusta la altura mínima para dejar espacio al footer */
+        padding-bottom: 100px;
+        /* Agrega un espacio al final para evitar que el contenido se oculte detrás del footer */
+        box-sizing: border-box;
+    }
+
+
+    #foryuFigure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        /* Ajusta el margen superior según tus preferencias */
+    }
+
+    #foryuImage {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+        /* Ajusta el margen inferior según tus preferencias */
+    }
+
+    #foryuFigure:hover #imageCaption {
+        display: block;
+    }
+
+
+    h1 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    fieldset {
+        border: 2px solid #007bff;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #fff;
+    }
+
+    legend {
+        font-weight: bold;
+    }
+
+    #avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-top: 10px;
+    }
+
+    button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Estilos para el footer */
+    footer {
+        background: linear-gradient(180deg, #000000 0%, #333333 100%);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        /* Para asegurarte de que el footer esté por encima del contenido */
+        transition: background-color 0.3s;
+        /* Agrega una transición para el cambio de color */
+    }
+
+    /* Estilos para los enlaces */
+    footer a {
+        text-decoration: none;
+        margin: 0 10px;
+        color: #ffffff;
+        transition: transform 0.3s, opacity 0.3s, color 0.3s;
+        /* Agrega transición para el color */
+    }
+
+    /* Efecto al acercar el cursor */
+    footer a:hover {
+        transform: scale(1.1);
+        /* Zoom al 110% */
+        opacity: 0.7;
+        color: #f7d000;
+        /* Cambia el color al acercar el cursor */
+    }
+
+    footer:hover {
+        background-color: #555555;
+        /* Cambia el color al acercar el cursor */
+    }
+
+    /* Estilos para las imágenes de los logos */
+    footer img {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        /* Alinea verticalmente las imágenes */
+        transition: transform 0.3s, opacity 0.3s, filter 0.3s;
+        /* Agrega transiciones para el efecto */
+        filter: grayscale(100%);
+        /* Agrega un efecto de escala de grises inicial */
+    }
+
+    footer a:hover img {
+        transform: scale(1.1);
+        /* Zoom al 110% */
+        opacity: 0.7;
+        filter: grayscale(0%);
+        /* Elimina el efecto de escala de grises al acercar el cursor */
+    }
+
+    /* Ajustar al ancho de la página */
+    footer div {
+        max-width: 100%;
+    }
+
+    /* Estilos para pantallas pequeñas y smartphones */
+    @media (max-width: 600px) {
+        body {
+            align-items: center;
+            padding: 10px;
+        }
+
+        .container {
+            align-items: center;
+        }
+
+        #avatar {
+            width: 80px;
+            height: 80px;
+        }
+
+        button {
+            padding: 8px 16px;
+        }
+
+        footer {
+            padding: 10px;
+        }
+
+        footer img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    @keyframes loading {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    button.loading {
+        animation: loading 1s infinite;
+    }
+
+
+    #foryuFigure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    #foryuImage {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+    }
+
+    #foryuFigure:hover #imageCaption {
+        display: block;
+    }
+
+    #imageCaption {
+        display: none;
+        text-align: center;
+        font-size: 1.2em;
+        /* Ajusta el tamaño de fuente según tus preferencias */
+        margin-top: 5px;
+        /* Ajusta el margen superior según tus preferencias */
+    }
+
+    /* Estilos para pantallas pequeñas y smartphones */
+    @media (max-width: 600px) {
+        #foryuFigure {
+            margin-top: 10px;
+            /* Reducir el margen superior en pantallas pequeñas */
+        }
+
+        #foryuImage {
+            margin-bottom: 5px;
+            /* Reducir el margen inferior en pantallas pequeñas */
+        }
+    }
+</style>
