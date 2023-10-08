@@ -7,6 +7,13 @@
   <title>Cambios</title>
   <link rel="stylesheet" href="Estilos/styles.css">
   <link rel="icon" href="Imagenes/icono.png">
+
+  <!-- Carga el núcleo de Firebase JS SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <!-- Agrega el manejo de autenticación. -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js">
+  </script>
+  <script src="js/init.js"></script>
 </head>
 
 <body>
@@ -425,22 +432,6 @@
       console.log(e);
       alert(e.message);
   }
-</script>
-<script>
-  auth.onAuthStateChanged(
-      usuarioAuth => {
-          if (usuarioAuth && usuarioAuth.email) {
-              // ... (otros elementos) ...
-
-              // Mostrar la imagen y el texto una vez autenticado
-              document.getElementById("foryuFigure").style.display = "block";
-              document.getElementById("imageCaption").style.display = "block";
-          } else {
-              // ... (otros elementos) ...
-          }
-      },
-      procesaError
-  );
 </script>
 
 </html>
