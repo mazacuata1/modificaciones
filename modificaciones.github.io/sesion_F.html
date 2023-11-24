@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambios</title>
+    <link rel="stylesheet" href="Estilos/styles.css">
+    <link rel="icon" href="Imagenes/icono.png">
+
+    <!-- Carga el SDK de Facebook -->
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v14.0&appId=TU_APP_ID_AQUI&autoLogAppEvents=1"
+        nonce="x5ctPsm3"></script>
+
+    <!-- Carga el núcleo de Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!-- Agrega el manejo de autenticación. -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="js/init.js"></script>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="navbar-left">
+            <button type="button" onclick="terminaSesión()">Cerrar Sesión</button>
+            <fieldset>
+                <legend>Email</legend>
+                <output id="email"><progress max="100">Cargando…</progress></output>
+            </fieldset>
+            <br>
+            <fieldset>
+                <legend>Nombre</legend>
+                <output id="nombre"></output>
+            </fieldset>
+            <br>
+        </div>
+        <figure><img src="avatar" id="avatar" alt="avatar" class="navbar-profile-image"></figure>
+    </div>
+
+    <!-- Agrega el botón de inicio de sesión con Facebook -->
+    <div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-layout="rounded"
+        data-auto-logout-link="true" data-use-continue-as="true" data-scope="public_profile,email"
+        onlogin="checkLoginState();"></div>
+
+    <!-- Agrega el contenedor para mostrar el estado de inicio de sesión de Facebook -->
+    <div id="status"></div>
+
+    <script>
+        // Función para verificar el estado de inicio de sesión de Facebook
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+
+        // Función de cambio de estado después de iniciar sesión con Facebook
+        function statusChangeCallback(response) {
+            if (response.status === 'connected') {
+                // Si está conectado, obtén y muestra la información del usuario
+                getFacebookUserInfo();
+            } else {
+                // Si no está conectado, muestra un mensaje o realiza acciones adicionales
+                console.log('Usuario no autenticado con Facebook');
+            }
+        }
+
+        // Función para obtener la información del usuario de Facebook
+        function getFacebookUserInfo() {
+            FB.api('/me?fields=id,name,email,picture.type(large)', function (response) {
+                // Muestra la información del usuario
+                document.getElementById('email').textContent = response.email;
+                document.getElementById('nombre').textContent = response.name;
+                document.getElementById('avatar').src = response.picture.data.url;
+            });
+        }
+    </script>
+
+    <footer class="font-changeable">
+        Copyright &copy; 2023 Saul Yair -- Mazacuata乡.
+        <div class="social-icons">
+            <!-- Puedes agregar tus propios enlaces a redes sociales aquí -->
+        </div>
+    </footer>
+</body>
+
+<script>
+    // Tu código de Firebase y funciones adicionales aquí
+</script>
+
+</html>
