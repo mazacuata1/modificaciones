@@ -8,133 +8,54 @@ body {
   src: url('Fuentes/KING ARTHUR') format('truetype');
   src: url('Fuentes/Minecraft') format('truetype');
 }
+/* Estilos para la barra de navegación */
 .navbar {
   background-color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  transition: background-color 0.3s; /* Agrega transición al color de fondo */
+  transition: background-color 0.3s; /* Transición de color de fondo */
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 
-.navbar:hover {
-  background-color: #555; /* Cambia el color de fondo al acercar el cursor */
-}
-
-.navbar-left {
-  display: flex;
-  align-items: center;
-}
-
-.navbar a {
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  transition: color 0.3s; /* Agrega transición al color de texto */
-}
-
-.navbar a:hover {
-  color: black;
-}
-
+/* Estilos para la imagen de perfil */
 .navbar-profile-image {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  margin: 0 10px;
+  margin-left: right; /* Mueve la imagen de perfil a la derecha */
 }
 
-.navbar-profile-inv {
-  display: none;
-}
-
-.profile-section {
-  text-align: center;
-  padding: 20px;
-}
-
-.profile-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 50%;
-}
-
-#image-select {
-  margin-top: 10px;
-  width: 100%;
-  padding: 5px;
-}
-
-#cambiar-foto-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #333;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-#cambiar-foto-button:hover {
-  background-color: #555;
-}
-
-
-#reset-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #333;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-#reset-button:hover {
-  background-color: #555;
-}
-
-.social-icons {
+/* Estilos para los botones */
+.navbar-buttons {
   display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  align-items: center; /* Centra verticalmente los botones junto a la imagen de perfil */
 }
 
-.social-icons a {
-  margin: 0 10px;
-  transition: transform 0.3s, opacity 0.3s, filter 0.3s, color 0.3s;
-  color: white;
+button {
+  margin-right: 20px; /* Ajusta el espacio entre los botones si es necesario */
+  padding: 10px 20px;
+  background-color: #333; /* Color de fondo del botón */
+  color: white; /* Color del texto del botón */
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.social-icons a:hover {
-  transform: scale(1.1);
-  opacity: 0.7;
-  filter: grayscale(0%);
-  color: #f7d000;
-}
-
-.social-icons img {
-  width: 30px;
-  height: 30px;
-  vertical-align: middle;
-  transition: transform 0.3s, opacity 0.3s, filter 0.3s;
-  filter: grayscale(100%);
-}
-
-.social-icons a:hover img {
-  transform: scale(1.1);
-  opacity: 0.7;
-  filter: grayscale(0%);
-}
-
-.navbar-profile-inv {
-  display: none;
+button:hover {
+  background-color: #555; /* Cambia el color de fondo al pasar el ratón */
 }
 
 
+/* Animación al pasar el ratón */
+.navbar:hover {
+  background-color: #ffffff36; /* Cambia el color de fondo al acercar el cursor */
+}
 /* ------------------- Sección 1: Foto de perfil ------------------- */
 .profile-section {
   text-align: center;

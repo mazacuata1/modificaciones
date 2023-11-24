@@ -12,15 +12,14 @@
 <body>
 
   <div class="navbar">
-    <div class="navbar-left">
-      <a class="font-changeable" href="sesion.html">iniciar sesion</a>
-    </div>
     <img src="Perfiles/perfil1.png" alt="Imagen de Perfil" class="navbar-profile-image">
-  </div>
+    <a href="autenticaciones.html"><button id="loginButton">Iniciar Sesión</button></a>
+</div>
 
 
 
-
+  <br>
+  <br><br>
   <section class="profile-section">
     <h2 class="font-changeable">Cambia la foto de perfil</h2>
     <img src="Perfiles/perfil1.png" alt="Imagen de Perfil" class="profile-image" id="profile-preview">
@@ -139,7 +138,7 @@
       <!-- Imágenes se mostrarán aquí -->
     </div>
   </section>
-  
+
   <div class="section">
     <h2>Escribe en el corazón</h2>
     <div class="heart-container">
@@ -149,7 +148,7 @@
     <input type="text" id="text-input" placeholder="Escribe tu mensaje" onchange="updateHeartText()">
     <br>
     <p>escribe lo que quieras 😘</p>
-</div>
+  </div>
 
 
 
@@ -298,50 +297,50 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-  const imageUpload = document.getElementById("image-upload");
-  const deleteAllButton = document.getElementById("delete-all-button");
-  const imageGrid = document.querySelector(".image-grid");
-  let pressTimer;
+    const imageUpload = document.getElementById("image-upload");
+    const deleteAllButton = document.getElementById("delete-all-button");
+    const imageGrid = document.querySelector(".image-grid");
+    let pressTimer;
 
-  // Función para agregar una imagen a la galería
-  const addImageToGallery = (imageSrc) => {
-    const imgElement = document.createElement("img");
-    imgElement.src = imageSrc;
-    imgElement.alt = "Imagen de la galería";
-    imgElement.className = "gallery-image";
-    imageGrid.appendChild(imgElement);
+    // Función para agregar una imagen a la galería
+    const addImageToGallery = (imageSrc) => {
+      const imgElement = document.createElement("img");
+      imgElement.src = imageSrc;
+      imgElement.alt = "Imagen de la galería";
+      imgElement.className = "gallery-image";
+      imageGrid.appendChild(imgElement);
 
-    // Manejar clic en la imagen para mostrarla completa
-    imgElement.addEventListener("click", function () {
-      imgElement.classList.toggle("full-image");
+      // Manejar clic en la imagen para mostrarla completa
+      imgElement.addEventListener("click", function () {
+        imgElement.classList.toggle("full-image");
+      });
+
+      // Manejar mantener presionada la imagen para eliminarla
+      imgElement.addEventListener("mousedown", function () {
+        pressTimer = setTimeout(function () {
+          imgElement.remove();
+        }, 1000); // Esperar 1000 ms
+      });
+
+      imgElement.addEventListener("mouseup", function () {
+        clearTimeout(pressTimer);
+      });
+    };
+
+    // Manejar la carga de imágenes desde el botón de carga
+    imageUpload.addEventListener("change", function (event) {
+      const selectedImage = event.target.files[0];
+      if (selectedImage) {
+        const imageURL = URL.createObjectURL(selectedImage);
+        addImageToGallery(imageURL);
+      }
     });
 
-    // Manejar mantener presionada la imagen para eliminarla
-    imgElement.addEventListener("mousedown", function () {
-      pressTimer = setTimeout(function () {
-        imgElement.remove();
-      }, 1000); // Esperar 1000 ms
+    // Manejar la eliminación de todas las imágenes
+    deleteAllButton.addEventListener("click", function () {
+      imageGrid.innerHTML = ""; // Vaciar la galería
     });
-
-    imgElement.addEventListener("mouseup", function () {
-      clearTimeout(pressTimer);
-    });
-  };
-
-  // Manejar la carga de imágenes desde el botón de carga
-  imageUpload.addEventListener("change", function (event) {
-    const selectedImage = event.target.files[0];
-    if (selectedImage) {
-      const imageURL = URL.createObjectURL(selectedImage);
-      addImageToGallery(imageURL);
-    }
   });
-
-  // Manejar la eliminación de todas las imágenes
-  deleteAllButton.addEventListener("click", function () {
-    imageGrid.innerHTML = ""; // Vaciar la galería
-  });
-});
 
 </script>
 
@@ -352,7 +351,7 @@
   const resetButton = document.getElementById("reset-button");
   const heart = document.querySelector(".heart"); // Agregado
 
-    document.addEventListener("click", () => {
+  document.addEventListener("click", () => {
     const color = colorSelector.value;
     heart.style.backgroundColor = color; // Modificado
   });
