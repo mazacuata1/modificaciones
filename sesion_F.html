@@ -7,10 +7,7 @@
     <title>Cambios</title>
     <link rel="stylesheet" href="Estilos/styles.css">
     <link rel="icon" href="Imagenes/icono.png">
-
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="js/init.js"></script>
     <script src="js/guardar.js"></script>
 </head>
@@ -162,55 +159,43 @@
         <p>escribe lo que quieras 😘</p>
     </div>
 
-
     <center>
-        <section class="cake-order-section">
-         <h2 class="font-changeable">Compra una torta</h2>
-         <form id="cake-order-form">
-             <label for="customer-name" class="font-changeable">Nombre del cliente:</label>
-             <input type="text" id="customer-name" maxlength="10" required>
-             <br><br>
-     
-             <label for="cake-specialty" class="font-changeable">Selecciona una especialidad de torta:</label>
-             <select id="cake-specialty" required>
-                 <option value="cubana">$100.00 MXN - Cubana</option>
-                 <option value="salchicha">$50.00 MXN - Salchicha</option>
-                 <option value="milanesa">$80.00 MXN - Milanesa</option>
-                 <option value="trevi">$90.00 MXN - Trevi</option>
-                 <option value="rusa">$120.00 MXN - Rusa</option>
-                 <option value="toluqueña">$70.00 MXN - Toluqueña</option>
-             </select>
-             <br><br>
-     
-             <label for="payment-method" class="font-changeable">Método de pago:</label>
-             <select id="payment-method" required>
-                 <option value="tarjeta">Tarjeta</option>
-                 <option value="efectivo">Efectivo</option>
-             </select>
-             <br><br>
-     
-             <label for="delivery-mode" class="font-changeable">Modo de entrega:</label>
-             <select id="delivery-mode" required>
-                 <option value="en-puesto">En puesto</option>
-                 <option value="a-domicilio">Entrega a domicilio</option>
-             </select>
-             <br><br>
-     
-             <label for="extras" class="font-changeable">Salsas, servilletas y limones:</label>
-             <input type="radio" id="extras-yes" name="extras" value="si" required>
-             <label for="extras-yes">Sí</label>
-             <input type="radio" id="extras-no" name="extras" value="no" required>
-             <label for="extras-no">No</label>
-             <br><br>
-     
-             <button type="submit" class="custom-button order-button">Realizar Pedido</button>
-         </form>
-     </section> 
-     <br><br><br>
-     </center>
+        <section class="background-section">
+            <form id="cakeForm">
+                <h2>Tortas</h2>
+        
+                <label for="cakeName">Nombre de la torta:</label>
+                <input type="text" id="cakeName" name="cakeName" required />
+                <br /><br />
+                <label for="cakePrice">Precio:</label>
+                <input type="text" id="cakePrice" name="cakePrice" required />
+                <br /><br />
+        
+                <label for="purchaseDate">Fecha en que se compró:</label>
+                <input type="date" id="purchaseDate" name="purchaseDate" required />
+                <br /><br /><br />
+        
+                <label for="cakeRating">Calificación:</label>
+                <input type="text" id="cakeRating" name="cakeRating" required />
+                <br /><br />
+        
+                <label for="cakeSize">Tamaño:</label>
+                <input type="text" id="cakeSize" name="cakeSize" required />
+                <br><br>
+        
+                <button type="submit">Guardar</button>
+                <button type="button" id="viewDataBtn">Ver Datos Almacenados</button>
+                <button type="button" id="modifyDataBtn">Modificar Datos</button>
+                <button type="button" id="deleteDataBtn">Eliminar Datos</button>
+            </form>
+        
+            <div id="storedData"></div>
+        </section>
+        
+    </center>
+
+    <br /><br /><br />
     
-
-
 
     <footer class="font-changeable">
         Copyright &copy; 2023 Saul Yair -- Mazacuata乡.
@@ -224,7 +209,9 @@
     </footer>
 </body>
 
-
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -480,4 +467,111 @@
     }
 </script>
 
+
+<script>
+    document.getElementById('cakeForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Obtener los valores del formulario
+    var cakeName = document.getElementById('cakeName').value;
+    var cakePrice = document.getElementById('cakePrice').value;
+    var purchaseDate = document.getElementById('purchaseDate').value;
+    var cakeRating = document.getElementById('cakeRating').value;
+    var cakeSize = document.getElementById('cakeSize').value;
+
+    // Crear un objeto con los datos
+    var cakeData = {
+        'Nombre de la torta': cakeName,
+        'Precio': cakePrice,
+        'Fecha en que se compró': purchaseDate,
+        'Calificación': cakeRating,
+        'Tamaño': cakeSize
+    };
+
+    // Verificar si hay datos almacenados previamente
+    var storedCakeData = JSON.parse(localStorage.getItem('cakeData'));
+
+    if (storedCakeData) {
+        // Si hay datos almacenados, preguntar al usuario si desea modificarlos
+        Swal.fire({
+            icon: 'question',
+            title: 'Modificar Datos',
+            text: '¿Deseas modificar los datos almacenados?',
+            showCancelButton: true,
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Actualizar los datos existentes con los nuevos valores
+                Object.assign(storedCakeData, cakeData);
+                localStorage.setItem('cakeData', JSON.stringify(storedCakeData));
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Datos Modificados',
+                    text: 'Los datos se han modificado correctamente.'
+                });
+            }
+        });
+    } else {
+        // Si no hay datos almacenados, guardar los nuevos datos
+        localStorage.setItem('cakeData', JSON.stringify(cakeData));
+
+        Swal.fire({
+            icon: 'success',
+            title: '¡Tortas guardadas con éxito!',
+            text: 'La información se ha registrado correctamente.'
+        });
+    }
+
+    // Limpiar el formulario
+    document.getElementById('cakeForm').reset();
+});
+
+// Botón para ver datos
+document.getElementById('viewDataBtn').addEventListener('click', function () {
+    // Redirigir a la página "tortas.html"
+    window.location.href = 'tortas.html';
+});
+
+// Función para cargar los datos almacenados en el formulario para su modificación
+document.getElementById('modifyDataBtn').addEventListener('click', function () {
+    var storedCakeData = JSON.parse(localStorage.getItem('cakeData'));
+
+    if (storedCakeData) {
+        // Llenar el formulario con los datos almacenados para su modificación
+        document.getElementById('cakeName').value = storedCakeData['Nombre de la torta'];
+        document.getElementById('cakePrice').value = storedCakeData['Precio'];
+        document.getElementById('purchaseDate').value = storedCakeData['Fecha en que se compró'];
+        document.getElementById('cakeRating').value = storedCakeData['Calificación'];
+        document.getElementById('cakeSize').value = storedCakeData['Tamaño'];
+
+        Swal.fire({
+            icon: 'info',
+            title: 'Modificación',
+            text: 'Puedes modificar los datos en el formulario. Después, haz clic en "Guardar".'
+        });
+    } else {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sin Datos',
+            text: 'No hay datos almacenados para modificar.'
+        });
+    }
+});
+
+// Función para eliminar datos
+document.getElementById('deleteDataBtn').addEventListener('click', function () {
+    // Elimina la entrada 'cakeData' del Local Storage
+    localStorage.removeItem('cakeData');
+
+    Swal.fire({
+        icon: 'success',
+        title: 'Datos Eliminados',
+        text: 'Los datos se han eliminado correctamente.'
+    });
+});
+
+
+</script>
 </html>
