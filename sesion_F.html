@@ -13,14 +13,15 @@
 
   <body>
     <div class="navbar">
-      <div class="navbar-left">
-        <button type="button" onclick="terminaSesión()">Cerrar Sesión</button>
-        <fieldset>
-          <legend>Facebook</legend>
-          <output id="nombre"></output>
-        </fieldset>
-        <br />
-      </div>
+        <div class="navbar-left">
+            <button type="button" onclick="cerrarSesion()">Cerrar Sesión</button>
+            <fieldset>
+                <legend>Facebook</legend>
+                <output id="nombre"></output>
+            </fieldset>
+            <br />
+        </div>
+        
       <figure>
         <img
           src="avatar"
@@ -620,4 +621,33 @@
         });
       });
   </script>
+
+<script>
+    function cerrarSesion() {
+        // Muestra un Sweet Alert de confirmación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¡Se cerrará tu sesión!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, cerrar sesión'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Cierra sesión (puedes agregar tu lógica específica aquí)
+                // Redirige a index.html
+                Swal.fire({
+                    title: 'Cerrando sesión...',
+                    icon: 'info',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    }
+</script>
 </html>

@@ -485,14 +485,35 @@
     }
 </script>
 <script>
+    const foryuFigure = document.getElementById("foryuFigure");
+    const imageCaption = document.getElementById("imageCaption");
+
     auth.onAuthStateChanged(
         usuarioAuth => {
             if (usuarioAuth && usuarioAuth.email) {
                 // ... (otros elementos) ...
 
-                // Mostrar la imagen y el texto una vez autenticado
-                document.getElementById("foryuFigure").style.display = "block";
-                document.getElementById("imageCaption").style.display = "block";
+                // Mostrar la imagen y el texto con una animación
+                foryuFigure.style.opacity = "0";  // Configura la opacidad inicial a 0
+                imageCaption.style.opacity = "0"; // Configura la opacidad inicial a 0
+
+                // Aplica una transición suave a la opacidad
+                foryuFigure.style.transition = "opacity 1s ease-in-out";
+                imageCaption.style.transition = "opacity 1s ease-in-out";
+
+                // Utiliza setTimeout para dar tiempo a que se apliquen las transiciones
+                setTimeout(() => {
+                    foryuFigure.style.opacity = "1";  // Cambia la opacidad a 1 para mostrar con animación
+                    imageCaption.style.opacity = "1"; // Cambia la opacidad a 1 para mostrar con animación
+
+                    // Después de la animación, muestra una Sweet Alert
+                    Swal.fire({
+                        title: '¡Bienvenido!',
+                        text: 'Has iniciado sesión exitosamente.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                }, 100); // Ajusta el tiempo según sea necesario
             } else {
                 // ... (otros elementos) ...
             }
