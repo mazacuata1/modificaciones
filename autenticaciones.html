@@ -44,7 +44,7 @@
         </center>
         <br><br><br><br><br><br>
     </div>
-    
+
 
 
 
@@ -53,7 +53,7 @@
     src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v18.0&appId=404253428797280"
     nonce="qgXHd83w"></script>
 
-    
+
 <script>
     var finished_rendering = function () {
         console.log("finished rendering plugins");
@@ -67,23 +67,26 @@
 
 <script>
     const spinner = document.getElementById('spinner');
-const fbLoginButton = spinner.querySelector('.fb-login-button');
+    const fbLoginButton = spinner.querySelector('.fb-login-button');
 
-fbLoginButton.addEventListener('click', e => {
-    e.preventDefault();
-    
-    // Puedes personalizar la configuración del proveedor según tus necesidades
-    const provider = new firebase.auth.FacebookAuthProvider();
+    fbLoginButton.addEventListener('click', e => {
+        e.preventDefault();
 
-    auth.signInWithPopup(provider)
-        .then(result => {
-            console.log(result);
-            console.log('Facebook sign in');
-        })
-        .catch(err => {
-            console.log(err);
-        });
-});
+        const provider = new firebase.auth.FacebookAuthProvider();
+
+        auth.signInWithPopup(provider)
+            .then(result => {
+                console.log(result);
+                console.log('Facebook sign in');
+
+                // Redirigir al usuario a "sesion_F.html" después de iniciar sesión con éxito
+                window.location.href = 'sesion_F.html';
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    });
+
 
 </script>
 
