@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="Estilos/styles.css">
     <link rel="icon" href="Imagenes/icono.png">
 
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
+    <!-- Carga el núcleo de Firebase JS SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!-- Agrega el manejo de autenticación. -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js">
+    </script>
     <script src="js/init.js"></script>
 </head>
 
@@ -21,15 +21,17 @@
     <div class="navbar">
         <div class="navbar-left">
             <button type="button" onclick="terminaSesión()">Cerrar Sesión</button>
-            <br>
+            <fieldset>
+                <legend>Facebook</legend>
+                <output id="nombre"></output>
+            </fieldset>
             <br>
         </div>
         <figure><img src="avatar" id="avatar" alt="avatar" class="navbar-profile-image"></figure>
     </div>
 
-    <script async defer crossorigin="anonymous"
-        src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v18.0&appId=404253428797280"
-        nonce="qgXHd83w"></script>
+
+
 
     <section class="profile-section">
         <h2 class="font-changeable">Cambia la foto de perfil</h2>
@@ -377,5 +379,58 @@
     }
 </script>
 
+<script>
+    //@ts-check
+    /** Conexión al sistema de autenticación de Firebase. */
+    // @ts-ignore
+    const auth = firebase.auth();
+    /** Tipo de autenticación de usuarios. En este caso es con Google. */
+    // @ts-ignore
+    const provider = new firebase.auth.GoogleAuthProvider();
+    /* Configura el proveedor de Google para que permita seleccionar de una
+     * lista. */
+    provider.setCustomParameters({ prompt: "select_account" });
+    /* Recibe una función que se invoca cada que hay un cambio en la
+     * autenticación y recibe el modelo con las características del usuario.*/
+    auth.onAuthStateChanged(
+        /** Recibe las características del usuario o null si no ha iniciado
+         * sesión. */
+        usuarioAuth => {
+            if (usuarioAuth && usuarioAuth.email) {
+                // Usuario aceptado.
+                // @ts-ignore Muestra el email registrado en Google.
+                email.value = usuarioAuth.email;
+                // @ts-ignore Muestra el nombre registrado en Google.
+                nombre.value = usuarioAuth.displayName;
+                // @ts-ignore Muestra el avatar registrado en Google.
+                avatar.src = usuarioAuth.photoURL;
+            } else {
+                // No ha iniciado sesión. Pide datos para iniciar sesión.
+                auth.signInWithRedirect(provider);
+            }
+        },
+        // Función que se invoca si hay un error al verificar el usuario.
+        procesaError
+    );
+    /** Termina la sesión. */
+    // Modifica la función terminaSesión para que redireccione al index
+    async function terminaSesión() {
+        try {
+            await auth.signOut();
+            // Redirige al usuario al index (puedes cambiar la URL)
+            window.location.href = "index.html"; // Cambia "index.html" a la URL de tu página de inicio
+        } catch (e) {
+            procesaError(e);
+        }
+    }
+
+    /** Procesa un error. Muestra el objeto en la consola y un cuadro de
+     * alerta con el mensaje.
+     * @param {Error} e descripción del error. */
+    function procesaError(e) {
+        console.log(e);
+        alert(e.message);
+    }
+</script>
 
 </html>

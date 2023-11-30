@@ -26,46 +26,44 @@
                 <img src="Imagenes/google_logo.jpg" alt="Iniciar Sesión con Google" />
                 Iniciar Sesión con Google
             </a>
+            <center>
+                <div id="spinner"
+            style="
+                background: #4267b2;
+                border-radius: 5px;
+                color: white;
+                height: 40px;
+                text-align: center;
+                width: 250px;">
+            Loading
+            <div
+            class="fb-login-button"
+            data-max-rows="1"
+            data-size="large"
+            data-button-type="continue_with"
+            data-use-continue-as="true"
+            ></div>
         </div>
-        <br />
-        <center>
-            <div id=".fb-login-button" class="fb-login-button" data-width="200" data-size="" data-button-type="" data-layout=""
-                data-auto-logout-link="false" data-use-continue-as="false"></div>
-        </center>
-        <br /><br /><br /><br /><br /><br />
+            </center>
+            
+        </div>
     </div>
+
+
 </body>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous"
     src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v18.0&appId=752532950223589"
     nonce="DEIe5BMj"></script>
 
-<script>
-    // Selecciona el elemento del botón de Facebook
-    const fbLoginButton = document.querySelector(".fb-login-button");
-
-    // Agrega un evento click al botón
-    fbLoginButton.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        // Crea una instancia del proveedor de autenticación de Facebook
-        const provider = new firebase.auth.FacebookAuthProvider();
-
-        // Inicia sesión con el popup de Facebook
-        auth
-            .signInWithPopup(provider)
-            .then((result) => {
-                console.log(result);
-                console.log("Inicio de sesión con Facebook exitoso");
-
-                // Redirige a la página "sesion_F.html" después del inicio de sesión exitoso
-                window.location.href = "sesion_F.html";
-            })
-            .catch((err) => {
-                console.log(err);
-                console.error("Error en el inicio de sesión con Facebook");
-            });
-    });
-</script>
+    <script>
+        var finished_rendering = function() {
+          console.log("finished rendering plugins");
+          var spinner = document.getElementById("spinner");
+          spinner.removeAttribute("style");
+          spinner.removeChild(spinner.childNodes[0]);
+        }
+        FB.Event.subscribe('xfbml.render', finished_rendering);
+        </script>
 
 </html>
