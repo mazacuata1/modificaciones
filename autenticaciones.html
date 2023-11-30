@@ -27,25 +27,19 @@
                 Iniciar Sesión con Google
             </a>
             <center>
-                <div id="spinner"
-            style="
+                <div id="spinner" style="
                 background: #4267b2;
                 border-radius: 5px;
                 color: white;
                 height: 40px;
                 text-align: center;
                 width: 250px;">
-            Loading
-            <div
-            class="fb-login-button"
-            data-max-rows="1"
-            data-size="large"
-            data-button-type="continue_with"
-            data-use-continue-as="true"
-            ></div>
-        </div>
+                    Loading
+                    <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
+                        data-use-continue-as="true"></div>
+                </div>
             </center>
-            
+
         </div>
     </div>
 
@@ -56,14 +50,31 @@
     src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v18.0&appId=752532950223589"
     nonce="DEIe5BMj"></script>
 
-    <script>
-        var finished_rendering = function() {
-          console.log("finished rendering plugins");
-          var spinner = document.getElementById("spinner");
-          spinner.removeAttribute("style");
-          spinner.removeChild(spinner.childNodes[0]);
+<script>
+    var finished_rendering = function () {
+        console.log("finished rendering plugins");
+        var spinner = document.getElementById("spinner");
+        spinner.removeAttribute("style");
+        spinner.removeChild(spinner.childNodes[0]);
+    }
+    FB.Event.subscribe('xfbml.render', finished_rendering);
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Puedes agregar esta función después de realizar cualquier acción
+        function redirectToSesionF() {
+            window.location.href = "sesion_F.html";
         }
-        FB.Event.subscribe('xfbml.render', finished_rendering);
-        </script>
+
+        // Ejemplo: Redirigir después de que el spinner esté oculto (asumiendo que se oculta después de cargar)
+        const spinner = document.getElementById("spinner");
+
+        // Ejemplo: Puedes ajustar esta lógica según cómo y cuándo se oculta tu spinner
+        if (spinner) {
+            setTimeout(redirectToSesionF, 5000); // Redirige después de 5 segundos como ejemplo
+        }
+    });
+</script>
 
 </html>

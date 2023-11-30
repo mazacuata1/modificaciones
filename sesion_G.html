@@ -2,22 +2,17 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cambios</title>
-    <link rel="stylesheet" href="Estilos/styles.css">
-    <link rel="icon" href="Imagenes/icono.png">
-
-    <!-- Carga el núcleo de Firebase JS SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <!-- Agrega el manejo de autenticación. -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js">
-    </script>
+    <link rel="stylesheet" href="Estilos/styles.css" />
+    <link rel="icon" href="Imagenes/icono.png" />
     <script src="js/init.js"></script>
+    <script src="js/guardar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body>
-
     <div class="navbar">
         <div class="navbar-left">
             <button type="button" onclick="terminaSesión()">Cerrar Sesión</button>
@@ -25,22 +20,21 @@
                 <legend>Email</legend>
                 <output id="email"><progress max="100">Cargando…</progress></output>
             </fieldset>
-            <br>
+            <br />
             <fieldset>
                 <legend>Nombre</legend>
                 <output id="nombre"></output>
             </fieldset>
-            <br>
+            <br />
         </div>
-        <figure><img src="avatar" id="avatar" alt="avatar" class="navbar-profile-image"></figure>
+        <figure>
+            <img src="avatar" id="avatar" alt="avatar" class="navbar-profile-image" />
+        </figure>
     </div>
-
-
-
 
     <section class="profile-section">
         <h2 class="font-changeable">Cambia la foto de perfil</h2>
-        <img src="" alt="avatar" class="profile-image" id="profile-preview">
+        <img src="" alt="avatar" class="profile-image" id="profile-preview" />
         <p class="font-changeable">Selecciona una imagen:</p>
         <select id="image-select">
             <option value="perfil2.png">Imagen 2</option>
@@ -88,70 +82,83 @@
             <option value="Perfil44.png">Imagen 44</option>
         </select>
         <button id="cambiar-foto-button">Cambiar Foto</button>
-        <p class="font-changeable">¿No te gustó ninguna foto? Selecciona una de tu galería 😎</p>
-        <br>
-        <input type="file" id="gallery-image" accept="image/*">
-        <br>
-        <br>
-        <br>
+        <p class="font-changeable">
+            ¿No te gustó ninguna foto? Selecciona una de tu galería 😎
+        </p>
+        <br />
+        <input type="file" id="gallery-image" accept="image/*" />
+        <br />
+        <br />
+        <br />
         <button id="reset-button">Restablecer Cambios</button>
-        <br>
-        <br>
+        <br />
+        <br />
     </section>
 
     <main class="color-change-section">
-        <h2 class="font-changeable">Cambia los colores del encabezado y pie de página</h2>
-        <br>
-        <br>
+        <h2 class="font-changeable">
+            Cambia los colores del encabezado y pie de página
+        </h2>
+        <br />
+        <br />
         <p class="font-changeable">Selecciona un color:</p>
-        <br>
-        <input type="color" id="colorPicker" class="color-picker">
-        <br>
-        <br>
-        <br>
-        <br>
+        <br />
+        <input type="color" id="colorPicker" class="color-picker" />
+        <br />
+        <br />
+        <br />
+        <br />
         <button id="applyColor" class="apply-button">Aplicar Cambios</button>
         <button id="resetColor" class="reset-button">Restablecer Cambios</button>
     </main>
 
     <section class="font-change-section">
         <h2 class="font-changeable">Cambia la tipografía</h2>
-        <p class="font-changeable" class="font-changeable">Selecciona una fuente:</p>
-        <br>
+        <p class="font-changeable" class="font-changeable">
+            Selecciona una fuente:
+        </p>
+        <br />
         <select id="fontSelect" class="font-select">
             <option class="font-changeable" value="Arial, sans-serif">Arial</option>
             <option class="font-changeable" value="Georgia, serif">Georgia</option>
-            <option class="font-changeable" value="Verdana, sans-serif">Verdana</option>
-            <option class="font-changeable" value="Times New Roman, serif">Times New Roman</option>
+            <option class="font-changeable" value="Verdana, sans-serif">
+                Verdana
+            </option>
+            <option class="font-changeable" value="Times New Roman, serif">
+                Times New Roman
+            </option>
             <option value="'KING ARTHUR', sans-serif">KING ARTHUR</option>
             <option value="'Minecraft', sans-serif">Minecraft</option>
         </select>
-        <br>
+        <br />
         <button id="applyFont" class="apply-button">Aplicar Cambios</button>
         <button id="resetFont" class="reset-button">Restablecer Cambios</button>
     </section>
 
-
     <section class="background-section">
         <h2 class="font-changeable">Cambia el fondo</h2>
         <p class="font-changeable">Selecciona un color:</p>
-        <input type="color" id="backgroundColorPicker" class="color-picker">
-        <br>
+        <input type="color" id="backgroundColorPicker" class="color-picker" />
+        <br />
         <p class="font-changeable">Selecciona una imagen de fondo:</p>
-        <input type="file" id="background-image" accept="image/*">
-        <br>
-        <br>
+        <input type="file" id="background-image" accept="image/*" />
+        <br />
+        <br />
         <button id="applyBackground" class="apply-button">Aplicar Cambios</button>
-        <button id="resetBackground" class="reset-button">Restablecer Cambios</button>
+        <button id="resetBackground" class="reset-button">
+            Restablecer Cambios
+        </button>
     </section>
 
     <section class="image-gallery">
         <h2 class="font-changeable">Galería de Imágenes</h2>
         <p class="font-changeable">Sube tus imágenes y personaliza la galería:</p>
-        <input type="file" id="image-upload" accept="image/*">
-        <br>
-        <br>
-        <button id="delete-all-button" class="custom-button delete-button">Eliminar Galería</button>
+        <input type="file" id="image-upload" accept="image/*" />
+        <br />
+        <br />
+        <button id="delete-all-button" class="custom-button delete-button">
+            Eliminar Galería
+        </button>
         <div class="image-grid">
             <!-- Imágenes se mostrarán aquí -->
         </div>
@@ -163,26 +170,63 @@
             <div class="heart"></div>
             <div class="heart-text">Tu texto aquí</div>
         </div>
-        <input type="text" id="text-input" placeholder="Escribe tu mensaje" onchange="updateHeartText()">
-        <br>
+        <input type="text" id="text-input" placeholder="Escribe tu mensaje" onchange="updateHeartText()" />
+        <br />
         <p>escribe lo que quieras 😘</p>
     </div>
 
+    <center>
+        <section class="background-section">
+            <form id="cakeForm">
+                <h2>Tortas</h2>
+        
+                <label for="cakeName">Nombre de la torta:</label>
+                <input type="text" id="cakeName" name="cakeName" required />
+                <br /><br />
+                <label for="cakePrice">Precio:</label>
+                <input type="text" id="cakePrice" name="cakePrice" required />
+                <br /><br />
+        
+                <label for="purchaseDate">Fecha en que se compró:</label>
+                <input type="date" id="purchaseDate" name="purchaseDate" required />
+                <br /><br /><br />
+        
+                <label for="cakeRating">Calificación:</label>
+                <input type="text" id="cakeRating" name="cakeRating" required />
+                <br /><br />
+        
+                <label for="cakeSize">Tamaño:</label>
+                <input type="text" id="cakeSize" name="cakeSize" required />
+                <br><br>
+        
+                <button type="submit">Guardar</button>
+                <button type="button" id="viewDataBtn">Ver Datos Almacenados</button>
+                <button type="button" id="modifyDataBtn">Modificar Datos</button>
+                <button type="button" id="deleteDataBtn">Eliminar Datos</button>
+            </form>
+        
+            <div id="storedData"></div>
+        </section>
+        
+    </center>
 
+    <br /><br /><br />
 
     <footer class="font-changeable">
         Copyright &copy; 2023 Saul Yair -- Mazacuata乡.
         <div class="social-icons">
             <a href="https://instagram.com/_mazacuata?utm_source=qr&igshid=NGExMmI2YTkyZg%3D%3D"><img
-                    src="Imagenes/igLogo.png" alt="Instagram"></a>
-            <a href="https://github.com/mazacuata1"><img src="Imagenes/githubLogo.png" alt="GitHub"></a>
-            <a href="https://www.facebook.com/sauly.faick"><img src="Imagenes/fbLogo.png" alt="Facebook"></a>
-            <a href="https://replit.com/@yankee1234511"><img src="Imagenes/replitLogo.png" alt="Replit"></a>
+                    src="Imagenes/igLogo.png" alt="Instagram" /></a>
+            <a href="https://github.com/mazacuata1"><img src="Imagenes/githubLogo.png" alt="GitHub" /></a>
+            <a href="https://www.facebook.com/sauly.faick"><img src="Imagenes/fbLogo.png" alt="Facebook" /></a>
+            <a href="https://replit.com/@yankee1234511"><img src="Imagenes/replitLogo.png" alt="Replit" /></a>
         </div>
     </footer>
 </body>
 
-
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.70/firebase-auth-compat.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -190,13 +234,15 @@
         const cambiarFotoButton = document.getElementById("cambiar-foto-button");
         const resetButton = document.getElementById("reset-button");
         const profileImage = document.getElementById("profile-preview");
-        const navbarProfileImages = document.querySelectorAll(".navbar-profile-image");
+        const navbarProfileImages = document.querySelectorAll(
+            ".navbar-profile-image"
+        );
         const galleryImageInput = document.getElementById("gallery-image");
 
         // Función para restablecer la imagen a la inicial
         const resetImage = () => {
             profileImage.src = "avatar";
-            navbarProfileImages.forEach(image => {
+            navbarProfileImages.forEach((image) => {
                 image.src = "avatar";
             });
             imageSelect.selectedIndex = 0; // Reiniciar el select a la primera opción
@@ -207,7 +253,7 @@
             profileImage.src = `Perfiles/${selectedImage}`;
 
             // Cambiar también la imagen en la barra de navegación
-            navbarProfileImages.forEach(image => {
+            navbarProfileImages.forEach((image) => {
                 image.src = `Perfiles/${selectedImage}`;
             });
         });
@@ -225,14 +271,13 @@
 
             if (selectedImage) {
                 profileImage.src = URL.createObjectURL(selectedImage);
-                navbarProfileImages.forEach(image => {
+                navbarProfileImages.forEach((image) => {
                     image.src = URL.createObjectURL(selectedImage);
                 });
             }
         });
     });
 </script>
-
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -258,35 +303,36 @@
     });
 </script>
 
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const fontSelect = document.getElementById("fontSelect");
         const applyFontButton = document.getElementById("applyFont");
         const resetFontButton = document.getElementById("resetFont");
-        const elementsToChangeFont = document.querySelectorAll(".font-changeable");
+        const elementsToChangeFont =
+            document.querySelectorAll(".font-changeable");
 
         let originalFont = getComputedStyle(elementsToChangeFont[0]).fontFamily;
 
         applyFontButton.addEventListener("click", function () {
             const selectedFont = fontSelect.value;
-            elementsToChangeFont.forEach(element => {
+            elementsToChangeFont.forEach((element) => {
                 element.style.fontFamily = selectedFont;
             });
         });
 
         resetFontButton.addEventListener("click", function () {
-            elementsToChangeFont.forEach(element => {
+            elementsToChangeFont.forEach((element) => {
                 element.style.fontFamily = originalFont;
             });
         });
     });
 </script>
 
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const backgroundColorPicker = document.getElementById("backgroundColorPicker");
+        const backgroundColorPicker = document.getElementById(
+            "backgroundColorPicker"
+        );
         const backgroundImageInput = document.getElementById("background-image");
         const applyBackgroundButton = document.getElementById("applyBackground");
         const resetBackgroundButton = document.getElementById("resetBackground");
@@ -307,7 +353,9 @@
             const selectedImage = event.target.files[0];
 
             if (selectedImage) {
-                body.style.backgroundImage = `url('${URL.createObjectURL(selectedImage)}')`;
+                body.style.backgroundImage = `url('${URL.createObjectURL(
+                    selectedImage
+                )}')`;
             }
         });
     });
@@ -359,7 +407,6 @@
             imageGrid.innerHTML = ""; // Vaciar la galería
         });
     });
-
 </script>
 
 <script>
@@ -400,7 +447,7 @@
     auth.onAuthStateChanged(
         /** Recibe las características del usuario o null si no ha iniciado
          * sesión. */
-        usuarioAuth => {
+        (usuarioAuth) => {
             if (usuarioAuth && usuarioAuth.email) {
                 // Usuario aceptado.
                 // @ts-ignore Muestra el email registrado en Google.
@@ -437,5 +484,115 @@
         alert(e.message);
     }
 </script>
+
+
+<script>
+    document.getElementById('cakeForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Obtener los valores del formulario
+    var cakeName = document.getElementById('cakeName').value;
+    var cakePrice = document.getElementById('cakePrice').value;
+    var purchaseDate = document.getElementById('purchaseDate').value;
+    var cakeRating = document.getElementById('cakeRating').value;
+    var cakeSize = document.getElementById('cakeSize').value;
+
+    // Crear un objeto con los datos
+    var cakeData = {
+        'Nombre de la torta': cakeName,
+        'Precio': cakePrice,
+        'Fecha en que se compró': purchaseDate,
+        'Calificación': cakeRating,
+        'Tamaño': cakeSize
+    };
+
+    // Verificar si hay datos almacenados previamente
+    var storedCakeData = JSON.parse(localStorage.getItem('cakeData'));
+
+    if (storedCakeData) {
+        // Si hay datos almacenados, preguntar al usuario si desea modificarlos
+        Swal.fire({
+            icon: 'question',
+            title: 'Modificar Datos',
+            text: '¿Deseas modificar los datos almacenados?',
+            showCancelButton: true,
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Actualizar los datos existentes con los nuevos valores
+                Object.assign(storedCakeData, cakeData);
+                localStorage.setItem('cakeData', JSON.stringify(storedCakeData));
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Datos Modificados',
+                    text: 'Los datos se han modificado correctamente.'
+                });
+            }
+        });
+    } else {
+        // Si no hay datos almacenados, guardar los nuevos datos
+        localStorage.setItem('cakeData', JSON.stringify(cakeData));
+
+        Swal.fire({
+            icon: 'success',
+            title: '¡Tortas guardadas con éxito!',
+            text: 'La información se ha registrado correctamente.'
+        });
+    }
+
+    // Limpiar el formulario
+    document.getElementById('cakeForm').reset();
+});
+
+// Botón para ver datos
+document.getElementById('viewDataBtn').addEventListener('click', function () {
+    // Redirigir a la página "tortas.html"
+    window.location.href = 'tortas.html';
+});
+
+// Función para cargar los datos almacenados en el formulario para su modificación
+document.getElementById('modifyDataBtn').addEventListener('click', function () {
+    var storedCakeData = JSON.parse(localStorage.getItem('cakeData'));
+
+    if (storedCakeData) {
+        // Llenar el formulario con los datos almacenados para su modificación
+        document.getElementById('cakeName').value = storedCakeData['Nombre de la torta'];
+        document.getElementById('cakePrice').value = storedCakeData['Precio'];
+        document.getElementById('purchaseDate').value = storedCakeData['Fecha en que se compró'];
+        document.getElementById('cakeRating').value = storedCakeData['Calificación'];
+        document.getElementById('cakeSize').value = storedCakeData['Tamaño'];
+
+        Swal.fire({
+            icon: 'info',
+            title: 'Modificación',
+            text: 'Puedes modificar los datos en el formulario. Después, haz clic en "Guardar".'
+        });
+    } else {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Sin Datos',
+            text: 'No hay datos almacenados para modificar.'
+        });
+    }
+});
+
+// Función para eliminar datos
+document.getElementById('deleteDataBtn').addEventListener('click', function () {
+    // Elimina la entrada 'cakeData' del Local Storage
+    localStorage.removeItem('cakeData');
+
+    Swal.fire({
+        icon: 'success',
+        title: 'Datos Eliminados',
+        text: 'Los datos se han eliminado correctamente.'
+    });
+});
+
+
+</script>
+
+
 
 </html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos de Tortas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+        }
+
+        .action-buttons button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre de la torta</th>
+                <th>Precio</th>
+                <th>Fecha de Compra</th>
+                <th>Calificación</th>
+                <th>Tamaño</th>
+            </tr>
+        </thead>
+        <tbody id="cakeTableBody"></tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const cakeTableBody = document.getElementById('cakeTableBody');
+
+    // Obtener datos del Local Storage para tortas
+    const storedCakeData = localStorage.getItem('cakeData');
+
+    if (storedCakeData) {
+        const cake = JSON.parse(storedCakeData);
+
+        // Agregar datos de tortas a la tabla
+        const cakeRow = cakeTableBody.insertRow();
+
+        for (const key in cake) {
+            if (cake.hasOwnProperty(key)) {
+                const cakeCell = cakeRow.insertCell();
+                cakeCell.innerHTML = cake[key];
+            }
+        }
+    } else {
+        // No hay datos de tortas
+        const noCakeDataRow = cakeTableBody.insertRow();
+        const noCakeDataCell = noCakeDataRow.insertCell();
+        noCakeDataCell.colSpan = 6;
+        noCakeDataCell.innerHTML = 'No hay datos de tortas.';
+    }
+});
+
+    </script>
+
+</body>
+
+</html>

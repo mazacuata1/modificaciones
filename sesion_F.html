@@ -8,12 +8,11 @@
     <link rel="stylesheet" href="Estilos/styles.css">
     <link rel="icon" href="Imagenes/icono.png">
 
-    <!-- Carga el núcleo de Firebase JS SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <!-- Agrega el manejo de autenticación. -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js">
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
     <script src="js/init.js"></script>
+    <script src="js/guardar.js"></script>
 </head>
 
 <body>
@@ -162,6 +161,54 @@
         <br>
         <p>escribe lo que quieras 😘</p>
     </div>
+
+
+    <center>
+        <section class="cake-order-section">
+         <h2 class="font-changeable">Compra una torta</h2>
+         <form id="cake-order-form">
+             <label for="customer-name" class="font-changeable">Nombre del cliente:</label>
+             <input type="text" id="customer-name" maxlength="10" required>
+             <br><br>
+     
+             <label for="cake-specialty" class="font-changeable">Selecciona una especialidad de torta:</label>
+             <select id="cake-specialty" required>
+                 <option value="cubana">$100.00 MXN - Cubana</option>
+                 <option value="salchicha">$50.00 MXN - Salchicha</option>
+                 <option value="milanesa">$80.00 MXN - Milanesa</option>
+                 <option value="trevi">$90.00 MXN - Trevi</option>
+                 <option value="rusa">$120.00 MXN - Rusa</option>
+                 <option value="toluqueña">$70.00 MXN - Toluqueña</option>
+             </select>
+             <br><br>
+     
+             <label for="payment-method" class="font-changeable">Método de pago:</label>
+             <select id="payment-method" required>
+                 <option value="tarjeta">Tarjeta</option>
+                 <option value="efectivo">Efectivo</option>
+             </select>
+             <br><br>
+     
+             <label for="delivery-mode" class="font-changeable">Modo de entrega:</label>
+             <select id="delivery-mode" required>
+                 <option value="en-puesto">En puesto</option>
+                 <option value="a-domicilio">Entrega a domicilio</option>
+             </select>
+             <br><br>
+     
+             <label for="extras" class="font-changeable">Salsas, servilletas y limones:</label>
+             <input type="radio" id="extras-yes" name="extras" value="si" required>
+             <label for="extras-yes">Sí</label>
+             <input type="radio" id="extras-no" name="extras" value="no" required>
+             <label for="extras-no">No</label>
+             <br><br>
+     
+             <button type="submit" class="custom-button order-button">Realizar Pedido</button>
+         </form>
+     </section> 
+     <br><br><br>
+     </center>
+    
 
 
 
