@@ -21,15 +21,7 @@
     <div class="navbar">
         <div class="navbar-left">
             <button type="button" onclick="terminaSesión()">Cerrar Sesión</button>
-            <fieldset>
-                <legend>Email</legend>
-                <output id="email"><progress max="100">Cargando…</progress></output>
-            </fieldset>
             <br>
-            <fieldset>
-                <legend>Nombre</legend>
-                <output id="nombre"></output>
-            </fieldset>
             <br>
         </div>
         <figure><img src="avatar" id="avatar" alt="avatar" class="navbar-profile-image"></figure>
@@ -439,56 +431,5 @@
     }
 </script>
 
-
-
-<script>
-    function checkLoginState() {
-        FB.getLoginStatus(function (response) {
-            if (response.status === 'connected') {
-                // El usuario ha iniciado sesión con Facebook
-                // Obtenemos información del usuario
-                FB.api('/me', { fields: 'id,name,email,picture' }, function (userInfo) {
-                    // Mostramos la información en la barra de navegación
-                    mostrarDatosEnBarraNavegacion(userInfo);
-                    // Redirigir al usuario a sesion_F.html
-                    window.location.href = 'sesion_F.html';
-                });
-            }
-        });
-    }
-
-    // Función para mostrar datos del usuario en la barra de navegación
-    function mostrarDatosEnBarraNavegacion(userInfo) {
-        // Muestra el nombre en el campo "nombre"
-        document.getElementById('nombre').textContent = userInfo.name;
-
-        // Puedes mostrar el email si lo tienes disponible
-        document.getElementById('email').textContent = userInfo.email;
-
-        // Muestra la foto de perfil en el campo "avatar"
-        document.getElementById('avatar').src = userInfo.picture.data.url;
-    }
-
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '404253428797280', // Reemplaza con tu ID de aplicación de Facebook
-            cookie: true,
-            xfbml: true,
-            version: 'v18.0'
-        });
-
-        // Registra una función de devolución de llamada para manejar el cambio de estado de autenticación
-        FB.Event.subscribe('auth.statusChange', checkLoginState);
-    };
-
-    // Carga de manera asíncrona el SDK de Facebook
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/es_ES/sdk.js';
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
 
 </html>
