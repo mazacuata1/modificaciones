@@ -12,4 +12,3 @@ firebase.initializeApp({
 });
 
 var db = firebase.firestore();
-var auth = firebase.auth();
