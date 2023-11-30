@@ -2,36 +2,138 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio de Sesión</title>
-    <link rel="stylesheet" href="Estilos/styles_aut.css">
-
+    <link rel="stylesheet" href="Estilos/styles_aut.css" />
+    <link rel="icon" href="Imagenes/icono.png">
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
+    <script src="js/init.js"></script>
 </head>
 
 <body>
 
     <div class="login-container">
+        <a href="index.html" class="back-button">⬅️ regresar</a> <!-- Nuevo botón para volver -->
+        <br><br>
         <h2>¿Cómo desea iniciar sesión?</h2>
         <div class="button-container">
             <a href="sesion_G.html" class="social-button">
-                <img src="Imagenes/google_logo.jpg" alt="Iniciar Sesión con Google">
+                <img src="Imagenes/google_logo.jpg" alt="Iniciar Sesión con Google" />
                 Iniciar Sesión con Google
             </a>
         </div>
         <br>
-        <br>
-        <!-- Agrega una imagen al botón de Facebook -->
-        <a href="sesion_F.html" class="social-button">
-            <img src="Imagenes/fbLogo.png" alt="Iniciar Sesión con Facebook">
-            Iniciar Sesión con Facebook
-        </a>
-        <div id="fb-root"></div>
-        <script async defer crossorigin="anonymous"
-            src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v18.0&appId=190308740802886"
-            nonce="r4GcNOOq"></script>
+        <center>
+            <div id="spinner" style="
+                background: #4267b2;
+                border-radius: 5px;
+                color: white;
+                height: 40px;
+                text-align: center;
+                width: 250px;">
+                Loading
+                <br>
+                <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
+                    data-use-continue-as="true"></div>
+            </div>
+        </center>
+        <br><br><br><br><br><br>
     </div>
+    
+
+
 
 </body>
+<script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v18.0&appId=404253428797280"
+    nonce="qgXHd83w"></script>
+
+    
+<script>
+    var finished_rendering = function () {
+        console.log("finished rendering plugins");
+        var spinner = document.getElementById("spinner");
+        spinner.removeAttribute("style");
+        spinner.removeChild(spinner.childNodes[0]);
+    }
+    FB.Event.subscribe('xfbml.render', finished_rendering);
+</script>
+
+
+<script>
+    // Función para manejar el cambio de estado de autenticación de Facebook
+    function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+                    // El usuario ha iniciado sesión con Facebook
+                    // Obtenemos información del usuario
+                    FB.api('/me', { fields: 'id,name,email' }, function (userInfo) {
+                        // Guardamos la información en Firestore
+                        guardarUsuarioEnFirestore(userInfo);
+                        // Redirigir al usuario a sesion_F.html
+                        window.location.href = 'sesion_F.html';
+                    });
+                }
+            });
+        }
+
+        // Función para guardar datos del usuario en Firestore
+        function guardarUsuarioEnFirestore(userInfo) {
+            // Crear una referencia a la colección "usuarios" (o el nombre que prefieras)
+            var usuariosRef = firebase.firestore().collection('usuarios');
+
+            // Comprobar si el usuario ya existe en Firestore
+            usuariosRef.where('id', '==', userInfo.id).get()
+                .then(function (querySnapshot) {
+                    if (querySnapshot.empty) {
+                        // El usuario no existe, lo agregamos a Firestore
+                        usuariosRef.add({
+                            id: userInfo.id,
+                            nombre: userInfo.name,
+                            email: userInfo.email
+                            // Puedes agregar más campos según tus necesidades
+                        })
+                            .then(function (docRef) {
+                                console.log('Usuario agregado a Firestore con ID:', docRef.id);
+                            })
+                            .catch(function (error) {
+                                console.error('Error al agregar usuario a Firestore:', error.message);
+                            });
+                    } else {
+                        // El usuario ya existe en Firestore
+                        console.log('El usuario ya existe en Firestore');
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error al buscar usuario en Firestore:', error.message);
+                });
+        }
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '404253428797280', // Reemplaza con tu ID de aplicación de Facebook
+                cookie: true,
+                xfbml: true,
+                version: 'v18.0'
+            });
+
+            // Registra una función de devolución de llamada para manejar el cambio de estado de autenticación
+            FB.Event.subscribe('auth.statusChange', checkLoginState);
+        };
+
+        // Carga de manera asíncrona el SDK de Facebook
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/es_ES/sdk.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+</script>
 
 </html>

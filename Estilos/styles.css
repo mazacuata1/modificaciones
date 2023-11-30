@@ -29,6 +29,10 @@ body {
   border-radius: 50%;
   margin-left: right; /* Mueve la imagen de perfil a la derecha */
 }
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
 
 /* Estilos para los botones */
 .navbar-buttons {
@@ -37,7 +41,7 @@ body {
 }
 
 button {
-  margin-right: 20px; /* Ajusta el espacio entre los botones si es necesario */
+  margin-right: 10px; /* Ajusta el espacio entre los botones si es necesario */
   padding: 10px 20px;
   background-color: #333; /* Color de fondo del botón */
   color: white; /* Color del texto del botón */

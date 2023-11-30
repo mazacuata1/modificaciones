@@ -10,3 +10,6 @@ firebase.initializeApp({
     appId: "1:522920400477:web:d45244eb92a96625bc5fb4",
     measurementId: "G-TEYPDQ7B50"
 });
+
+// Inicializa Firestore y Auth (opcional, si los usas)
+var db = firebase.firestore();
