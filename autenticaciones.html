@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio de Sesión</title>
     <link rel="stylesheet" href="Estilos/styles_aut.css" />
-    <link rel="icon" href="Imagenes/icono.png">
+    <link rel="icon" href="Imagenes/icono.png" />
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
@@ -16,10 +16,10 @@
 </head>
 
 <body>
-
     <div class="login-container">
-        <a href="index.html" class="back-button">⬅️ regresar</a> <!-- Nuevo botón para volver -->
-        <br><br>
+        <a href="index.html" class="back-button">⬅️ regresar</a>
+        <!-- Nuevo botón para volver -->
+        <br /><br />
         <h2>¿Cómo desea iniciar sesión?</h2>
         <div class="button-container">
             <a href="sesion_G.html" class="social-button">
@@ -27,67 +27,45 @@
                 Iniciar Sesión con Google
             </a>
         </div>
-        <br>
+        <br />
         <center>
-            <div id="spinner" style="
-                background: #4267b2;
-                border-radius: 5px;
-                color: white;
-                height: 40px;
-                text-align: center;
-                width: 250px;">
-                Loading
-                <br>
-                <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with"
-                    data-use-continue-as="true"></div>
-            </div>
+            <div class="fb-login-button" data-width="200" data-size="" data-button-type="" data-layout=""
+                data-auto-logout-link="false" data-use-continue-as="false"></div>
         </center>
-        <br><br><br><br><br><br>
+        <br /><br /><br /><br /><br /><br />
     </div>
-
-
-
-
 </body>
+<div id="fb-root"></div>
 <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v18.0&appId=404253428797280"
-    nonce="qgXHd83w"></script>
-
-
-<script>
-    var finished_rendering = function () {
-        console.log("finished rendering plugins");
-        var spinner = document.getElementById("spinner");
-        spinner.removeAttribute("style");
-        spinner.removeChild(spinner.childNodes[0]);
-    }
-    FB.Event.subscribe('xfbml.render', finished_rendering);
-</script>
-
+    src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v18.0&appId=752532950223589"
+    nonce="DEIe5BMj"></script>
 
 <script>
-    const spinner = document.getElementById('spinner');
-    const fbLoginButton = spinner.querySelector('.fb-login-button');
+    // Selecciona el elemento del botón de Facebook
+    const fbLoginButton = document.querySelector(".fb-login-button");
 
-    fbLoginButton.addEventListener('click', e => {
+    // Agrega un evento click al botón
+    fbLoginButton.addEventListener("click", (e) => {
         e.preventDefault();
 
+        // Crea una instancia del proveedor de autenticación de Facebook
         const provider = new firebase.auth.FacebookAuthProvider();
 
-        auth.signInWithPopup(provider)
-            .then(result => {
+        // Inicia sesión con el popup de Facebook
+        auth
+            .signInWithPopup(provider)
+            .then((result) => {
                 console.log(result);
-                console.log('Facebook sign in');
+                console.log("Inicio de sesión con Facebook exitoso");
 
-                // Redirigir al usuario a "sesion_F.html" después de iniciar sesión con éxito
-                window.location.href = 'sesion_F.html';
+                // Redirige a la página "sesion_F.html" después del inicio de sesión exitoso
+                window.location.href = "sesion_F.html";
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log(err);
+                console.error("Error en el inicio de sesión con Facebook");
             });
     });
-
-
 </script>
 
 </html>
